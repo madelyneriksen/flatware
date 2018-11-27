@@ -2,6 +2,7 @@
 
 
 import logging
+import argparse
 import configparser
 
 
@@ -45,3 +46,55 @@ def get_template_arguments(config: configparser.ConfigParser) -> list:
             "name": argument_name
         })
     return results
+
+
+def build_template_argparser(template_args: list) -> argparse.ArgumentParser:
+    """Build an argument parser for the template."""
+    argparser = argparse.ArgumentParser()
+    for argument in template_args:
+        argument_parsers = {
+            "str": parse_str,
+            "list": parse_list,
+            "int": parse_int,
+            "float": parse_float,
+        }
+        parser = argument_parsers.get(argument["type"], "str")
+        parser(argument, argparser)
+    return argparser
+
+
+# Argument Parsers for building argparser on template arguments.
+def parse_str(argument: dict, argparser: argparse.ArgumentParser) -> None:
+    """Add a string argument to the argparser."""
+    argparser.add_argument(
+        "--{}".format(argument["name"]),
+        type=str,
+        default=argument["default"],
+    )
+
+
+def parse_list(argument: dict, argparser: argparse.ArgumentParser) -> None:
+    """Add a list argument to the argparser."""
+    argparser.add_argument(
+        "--{}".format(argument["name"]),
+        default=argument["default"],
+        nargs='*'
+    )
+
+
+def parse_int(argument: dict, argparser: argparse.ArgumentParser) -> None:
+    """Add a int argument to the argparser."""
+    argparser.add_argument(
+        "--{}".format(argument["name"]),
+        type=int,
+        default=argument["default"],
+    )
+
+
+def parse_float(argument: dict, argparser: argparse.ArgumentParser) -> None:
+    """Add a float argument to the argparser."""
+    argparser.add_argument(
+        "--{}".format(argument["name"]),
+        type=float,
+        default=argument["default"],
+    )

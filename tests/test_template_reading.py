@@ -50,3 +50,17 @@ type=location
     with pytest.raises(TypeError) as e_info:
         reading.get_template_arguments(config)
     assert "not an accepted template argument" in e_info.value.args[0]
+
+
+def test_string_argument_parsing():
+    """Test that generated argument parsers can read strings properly."""
+    arguments = [
+        {
+            "name": "firstname",
+            "type": "str",
+            "default": "Allysa P. Hacker",
+        },
+    ]
+    parser = reading.build_template_argparser(arguments)
+    values = parser.parse_args(["--firstname", "john"])
+    assert values.firstname == "john"
