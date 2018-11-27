@@ -6,6 +6,7 @@ import configparser
 
 
 LOG = logging.getLogger(__name__)
+ARGUMENT_TYPES = ["str", "list", "int", "float"]
 
 
 def parse_template_config(raw_template: str) -> tuple:
@@ -31,6 +32,11 @@ def get_template_arguments(config: configparser.ConfigParser) -> list:
     results = []
     for argument in sections:
         argument_type = config.get(argument, "type", fallback="str")
+        try:
+            assert argument_type in ARGUMENT_TYPES
+        except AssertionError:
+            raise TypeError("Argument type '%s' is not an accepted "
+                            "template argument type." % argument_type)
         argument_default = config.get(argument, "default", fallback=None)
         argument_name = argument
         results.append({

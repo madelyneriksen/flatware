@@ -38,3 +38,15 @@ default=rayman"""
     config.read_string(raw_config)
     results = reading.get_template_arguments(config)
     assert results[0]['name'] == 'firstname'
+
+
+def test_incorrect_template_argument_types():
+    """Test to make sure incorrect argument types are not accepted."""
+    raw_config = """[place]
+type=location
+"""
+    config = ConfigParser()
+    config.read_string(raw_config)
+    with pytest.raises(TypeError) as e_info:
+        reading.get_template_arguments(config)
+    assert "not an accepted template argument" in e_info.value.args[0]
