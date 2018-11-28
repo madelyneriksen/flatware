@@ -1,3 +1,4 @@
 .env
 spike/
 __pycache__/
+*.egg-info
