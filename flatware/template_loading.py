@@ -4,7 +4,7 @@
 import os
 
 
-TEMPLATE_DIR = os.path.expandvars(
+TEMPLATE_DIR = os.path.expanduser(
     os.getenv("FLATWARE_TEMPLATE_DIR", "~/.plates/")
 )
 
