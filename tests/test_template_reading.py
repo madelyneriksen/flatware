@@ -64,3 +64,65 @@ def test_string_argument_parsing():
     parser = reading.build_template_argparser(arguments)
     values = parser.parse_args(["--firstname", "john"])
     assert values.firstname == "john"
+
+
+def test_list_argument_parsing():
+    """Test the parsing of list arguments."""
+    arguments = [
+        {
+            "name": "places",
+            "type": "list",
+            "default": None
+        }
+    ]
+    parser = reading.build_template_argparser(arguments)
+    values = parser.parse_args(["--places", "hawaii", "california", "oregon"])
+    assert values.places == ["hawaii", "california", "oregon"]
+
+    values_with_spaces = parser.parse_args(['--places', "california",
+                                            "new mexico", "washington"])
+    assert values_with_spaces.places == ["california",
+                                         "new mexico",
+                                         "washington"]
+
+
+def test_default_integer_argument_value():
+    """Test that default arguments have the proper type."""
+    arguments = [
+        {
+            "name": "sum",
+            "type": "int",
+            "default": "4"
+        },
+    ]
+    parser = reading.build_template_argparser(arguments)
+    values = parser.parse_args([])
+    assert values.sum == 4
+
+
+def test_default_list_argument_value():
+    """Test default arguments for lists."""
+    arguments = [
+        {
+            "name": "foods",
+            "type": "list",
+            "default": "pizza salad soup",
+        }
+    ]
+    parser = reading.build_template_argparser(arguments)
+    values = parser.parse_args([])
+    assert values.foods == ["pizza", "salad", "soup"]
+
+
+def test_falsy_default_argument_values():
+    """Test the absence of default arguments."""
+    arguments = [
+        {
+            "name": "nonrequired",
+            "type": "str",
+            "default": None
+        },
+    ]
+    parser = reading.build_template_argparser(arguments)
+    values = parser.parse_args([])
+    assert values.nonrequired is None

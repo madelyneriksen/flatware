@@ -75,26 +75,38 @@ def parse_str(argument: dict, argparser: argparse.ArgumentParser) -> None:
 
 def parse_list(argument: dict, argparser: argparse.ArgumentParser) -> None:
     """Add a list argument to the argparser."""
+    if argument["default"]:
+        extra_args = {"default": argument["default"].split(' ')}
+    else:
+        extra_args = {}
     argparser.add_argument(
         "--{}".format(argument["name"]),
-        default=argument["default"],
-        nargs='*'
+        nargs='*',
+        **extra_args
     )
 
 
 def parse_int(argument: dict, argparser: argparse.ArgumentParser) -> None:
     """Add a int argument to the argparser."""
+    if argument["default"]:
+        extra_args = {"default": int(argument["default"].strip())}
+    else:
+        extra_args = {}
     argparser.add_argument(
         "--{}".format(argument["name"]),
         type=int,
-        default=argument["default"],
+        **extra_args,
     )
 
 
 def parse_float(argument: dict, argparser: argparse.ArgumentParser) -> None:
     """Add a float argument to the argparser."""
+    if argument["default"]:
+        extra_args = {"default": float(argument["default"].strip())}
+    else:
+        extra_args = {}
     argparser.add_argument(
         "--{}".format(argument["name"]),
         type=float,
-        default=argument["default"],
+        **extra_args,
     )
