@@ -126,3 +126,15 @@ def test_falsy_default_argument_values():
     parser = reading.build_template_argparser(arguments)
     values = parser.parse_args([])
     assert values.nonrequired is None
+
+
+def test_end_to_end_parsing():
+    """Test one path through the template parsing."""
+    template = """[name]
+type=str
+---
+Hello, this is my template!"""
+    template, parser = reading.make_argparse_from_template(template)
+    assert template == "Hello, this is my template!"
+    values = parser.parse_args(["--name", "John Doe"])
+    assert values.name == "John Doe"

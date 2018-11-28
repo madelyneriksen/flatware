@@ -110,3 +110,20 @@ def parse_float(argument: dict, argparser: argparse.ArgumentParser) -> None:
         type=float,
         **extra_args,
     )
+
+
+def make_argparse_from_template(template: str) -> tuple:
+    """Make an argparser from a template given as a string.
+
+    This is the top level function for this module and what the
+    command line wraps.
+
+    Arguments:
+        template: A string version of a plate
+    Returns:
+        result: A tuple of a template string and the argparser for it.
+    """
+    config, template = parse_template_config(template)
+    arguments = get_template_arguments(config)
+    argparser = build_template_argparser(arguments)
+    return template, argparser
