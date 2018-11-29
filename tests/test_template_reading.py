@@ -18,6 +18,20 @@ Hello {{ name }}!"""
     assert config.get("name", "type") == "str"
 
 
+def test_template_splits_limited():
+    """Test that templates are limited to splitting once."""
+    template = """[packages]
+type=list
+default="htop vim git"
+---
+---
+This should be after the tripe dash.
+"""
+    config, template = reading.parse_template_config(template)
+    assert '---\n' in template
+    assert config.get("packages", "type") == "list"
+
+
 def test_read_incomplete_template():
     """Test the reading of incomplete templates."""
     template = """[place]

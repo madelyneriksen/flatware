@@ -13,7 +13,7 @@ ARGUMENT_TYPES = ["str", "list", "int", "float"]
 def parse_template_config(raw_template: str) -> tuple:
     """Split a template into its config and the template itself."""
     try:
-        options, template = raw_template.split("---\n")
+        options, template = raw_template.split("---\n", 1)
     except ValueError:
         raise TypeError("Invalid Template.")
     config = configparser.ConfigParser()
