@@ -19,6 +19,12 @@ setup(
     author_email="madelyn.eriksen@gmail.com",
     description="Create and use single file templates.",
     url="https://github.com/madelyneriksen/flatware",
-    packages=[],
+    packages=['flatware'],
+    install_requires=['jinja2'],
     long_description=read('README.md'),
+    entry_points = {
+        'console_scripts': [
+            'flatware = flatware.cli:main',
+        ],
+    }
 )
