@@ -22,7 +22,7 @@ setup(
     packages=['flatware'],
     install_requires=['jinja2'],
     long_description=read('README.md'),
-    entry_points = {
+    entry_points={
         'console_scripts': [
             'flatware = flatware.cli:main',
         ],
