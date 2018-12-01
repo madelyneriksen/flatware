@@ -19,7 +19,9 @@ def test_parse_render_template(tmpdir):
                     '{{ place }}\n'
                     '{% endfor %}'))
     extra_args = ['--name', 'Julia', '--places', 'New York', 'San Francisco']
-    result = parse_render_template("nameform", extra_args, template_dir=tmpdir)
+    result = parse_render_template("nameform",
+                                   extra_args,
+                                   template_dir=str(tmpdir))
     assert 'Hello Julia!' in result
     assert 'New York' in result
     assert 'San Francisco' in result
