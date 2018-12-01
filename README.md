@@ -7,7 +7,7 @@ Create files from **plates** (single file template), right from the command line
 
 Let's make a plate for creating React components:
 
-```
+```javascript
 [component]
 type=str
 default=MyComponent
@@ -31,7 +31,7 @@ Save this to `~/.plates/react-component`. Now, we can install `Flatware` and try
 
 Install from source:
 
-```
+```bash
 git clone https://github.com/madelyneriksen/flatware/
 cd flatware
 # Whatever you prefer for virtual environments
@@ -49,7 +49,7 @@ Plates are files that contain configuration and a template.
 
 Configuration in plates is similar to `*.ini` file syntax. Plate configuration defines command line arguments for the plate, as well as the typing and default value of each argument.
 
-```
+```ini
 # In brackets is the name of the argument.
 # Argument names are used in the command line for passing values.
 [languages]
@@ -70,7 +70,7 @@ default="python javascript rust"
 
 Template syntax in plates uses Jinja2/Django syntax. Jinja2 allows plate authors to add loops, checks, and basic processing to templates easily.
 
-```
+```jinja
 {% for language in languages %}
 {{ language }} programming rocks!
 {% endfor %}
