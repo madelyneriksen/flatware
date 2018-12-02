@@ -5,6 +5,7 @@ import sys
 import argparse
 from flatware.template_reading import make_argparse_from_template
 from flatware.template_loading import load_template
+from flatware.template_loading import get_avaliable_template_names
 from flatware.template_rendering import render_template
 
 
@@ -14,7 +15,13 @@ def create_argparser():
         "Flatware is an application for reading and using single-file "
         "templates called 'plates'."
     )
-    main_argparser.add_argument("plate", help="Name of the plate file.")
+    main_argparser.add_argument("plate",
+                                nargs="?",
+                                help="Name of the plate file.")
+    main_argparser.add_argument("--list",
+                                "-l",
+                                help="List all avaliable templates",
+                                action="store_true")
     return main_argparser
 
 
@@ -34,6 +41,10 @@ def main():
     """Main entrypoint."""
     main_argparser = create_argparser()
     main_args, extra_args = main_argparser.parse_known_args()
+    if main_args.list:
+        result = get_avaliable_template_names()
+        _ = [print(x) for x in result]
+        sys.exit(0)
     if main_args.plate:
         result = parse_render_template(main_args.plate, extra_args)
         print(result)
