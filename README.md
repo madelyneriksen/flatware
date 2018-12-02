@@ -1,6 +1,8 @@
 Flatware
 =======
 
+[![Build Status](https://travis-ci.org/madelyneriksen/flatware.svg?branch=master)](https://travis-ci.org/madelyneriksen/flatware)
+
 Create files from **plates** (single file template), right from the command line.
 
 ## Get Started
