@@ -77,3 +77,33 @@ Template syntax in plates uses Jinja2/Django syntax. Jinja2 allows plate authors
 ```
 
 Jinja2 is easy to use, but a lot to cover for one README. You can read more about Jinja2 [here](https://github.com/pallets/jinja).
+
+## Contributing
+
+Pull requests, issues, and feature requests are always welcome! If you'd like to develop a feature, here's the steps for making your dev environment.
+
+```bash
+# First, clone this repo from source
+git clone https://github.com/madelyneriksen/flatware
+cd flatware
+# Install our requirements locally
+virtualenv .env
+source .env/bin/activate
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
+# Install in dev mode
+python setup.py develop
+# Our tests should be working, let's check
+pytest
+```
+
+Code is linted with the wonderful `pylint` as well as `pycodestyle`.
+
+## License
+
+Flatware is MIT Licensed.
+
+## Special Thanks
+
+* Audreyr for creating [cookiecutter](https://github.com/audreyr/cookiecutter), which inspired flatware
+* The team of contributors working on [jinja2](https://github.com/pallets/jinja)
