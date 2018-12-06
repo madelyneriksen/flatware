@@ -66,10 +66,14 @@ def build_template_argparser(template_args: list) -> argparse.ArgumentParser:
 # Argument Parsers for building argparser on template arguments.
 def parse_str(argument: dict, argparser: argparse.ArgumentParser) -> None:
     """Add a string argument to the argparser."""
+    if argument["default"]:
+        extra_args = {"default": argument["default"]}
+    else:
+        extra_args = {"default": ''}
     argparser.add_argument(
         "--{}".format(argument["name"]),
         type=str,
-        default=argument["default"],
+        **extra_args,
     )
 
 
@@ -78,7 +82,7 @@ def parse_list(argument: dict, argparser: argparse.ArgumentParser) -> None:
     if argument["default"]:
         extra_args = {"default": argument["default"].split(' ')}
     else:
-        extra_args = {}
+        extra_args = {"default": []}
     argparser.add_argument(
         "--{}".format(argument["name"]),
         nargs='*',
@@ -91,7 +95,7 @@ def parse_int(argument: dict, argparser: argparse.ArgumentParser) -> None:
     if argument["default"]:
         extra_args = {"default": int(argument["default"].strip())}
     else:
-        extra_args = {}
+        extra_args = {"default": 0}
     argparser.add_argument(
         "--{}".format(argument["name"]),
         type=int,
@@ -104,7 +108,7 @@ def parse_float(argument: dict, argparser: argparse.ArgumentParser) -> None:
     if argument["default"]:
         extra_args = {"default": float(argument["default"].strip())}
     else:
-        extra_args = {}
+        extra_args = {"default": 0.0}
     argparser.add_argument(
         "--{}".format(argument["name"]),
         type=float,

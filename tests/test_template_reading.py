@@ -139,7 +139,7 @@ def test_falsy_default_argument_values():
     ]
     parser = reading.build_template_argparser(arguments)
     values = parser.parse_args([])
-    assert values.nonrequired is None
+    assert values.nonrequired == ''
 
 
 def test_end_to_end_parsing():
