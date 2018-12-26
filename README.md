@@ -39,6 +39,7 @@ cd flatware
 # Whatever you prefer for virtual environments
 virtualenv .env
 source .env/bin/activate
+pip -r requirements.txt && python setup.py install
 # Now we can use flatware!
 flatware react-component --component Navar > navbar.js
 ```
